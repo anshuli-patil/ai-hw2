@@ -11,7 +11,7 @@ public class GameBoard {
 	int[][] grid;
 	int[][] gridValues;
 
-	int emptyBlocks;
+	int emptyBlocks = 0;
 
 	PLAYER_TYPE nextPlayer = PLAYER_TYPE.MAX;
 
@@ -19,7 +19,14 @@ public class GameBoard {
 		this.N = N;
 		this.gridValues = gridValues;
 		this.grid = grid;
-		emptyBlocks = N * N;
+		
+		for (int i = 0; i < N; i++) {
+			for(int j = 0; j< N; j++) {
+				if(grid[i][j] == 0) {
+					emptyBlocks += 1;
+				}
+			}
+		}
 	}
 
 	public void performAction(PLAYER_TYPE player, GameAction action) {
@@ -96,6 +103,8 @@ public class GameBoard {
 					board.append(enemySymbol);
 				}
 			}
+
+			
 			board.append("\n");
 		}
 		return board.toString();

@@ -116,6 +116,7 @@ public class homework {
 			bufferedFileWriter.write(actionString);
 
 			bufferedFileWriter.write("\n");
+			
 			String boardString = board.toString(this.playerSymbol);
 			bufferedFileWriter.write(boardString);
 
