@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GameBoard {
 
-	// size of NxN Grid 
+	// size of NxN Grid
 	int N;
 
 	int[][] grid;
@@ -19,10 +19,10 @@ public class GameBoard {
 		this.N = N;
 		this.gridValues = gridValues;
 		this.grid = grid;
-		
+
 		for (int i = 0; i < N; i++) {
-			for(int j = 0; j< N; j++) {
-				if(grid[i][j] == 0) {
+			for (int j = 0; j < N; j++) {
+				if (grid[i][j] == 0) {
 					emptyBlocks += 1;
 				}
 			}
@@ -59,22 +59,15 @@ public class GameBoard {
 		List<GameAction> nextMoves = new ArrayList<GameAction>();
 
 		for (ACTION_TYPE action : ACTION_TYPE.values()) {
-			nextMoves.addAll(nextActionByType(player, action));
-		}
-		return nextMoves;
-	}
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
 
-	private List<GameAction> nextActionByType(PLAYER_TYPE player, ACTION_TYPE action) {
-		List<GameAction> nextMoves = new ArrayList<GameAction>();
+					if (grid[i][j] == 0) {
+						GameAction newAction = GameAction.getGameAction(i, j, this, action);
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-
-				if (grid[i][j] == 0) {
-					GameAction newAction = GameAction.getGameAction(i, j, this, action);
-
-					if (newAction.checkValidity(player)) {
-						nextMoves.add(newAction);
+						if (newAction.checkValidity(player)) {
+							nextMoves.add(newAction);
+						}
 					}
 				}
 			}
@@ -92,9 +85,11 @@ public class GameBoard {
 		} else {
 			enemySymbol = "X";
 		}
+
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				int gridVal = grid[i][j];
+				
 				if (gridVal == 0) {
 					board.append(".");
 				} else if (gridVal == 1) {
@@ -104,7 +99,6 @@ public class GameBoard {
 				}
 			}
 
-			
 			board.append("\n");
 		}
 		return board.toString();
